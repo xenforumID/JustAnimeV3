@@ -1,3 +1,12 @@
 {
-    "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }]
+    "rewrites": [
+        {
+            "source": "/translate_a/:match*",
+            "destination": "https://translate.googleapis.com/translate_a/:match*"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
 }

@@ -475,14 +475,15 @@ export default function Player({
               isAuto: true,
             }] : [])
           ],
-          onSelect: async (item) => {
+          onSelect: (item) => {
             if (item.isAuto) {
               art.notice.show = "Translating subtitle...";
               const englishSub = subtitles.find(s => s.label.toLowerCase() === "english");
               if (englishSub) {
-                const newUrl = await translateVtt(englishSub.file, "id");
-                art.notice.show = "Translation complete";
-                art.subtitle.switch(newUrl, { name: item.html });
+                translateVtt(englishSub.file, "id").then(newUrl => {
+                  art.notice.show = "Translation complete";
+                  art.subtitle.switch(newUrl, { name: item.html });
+                });
                 return item.html;
               }
             }
